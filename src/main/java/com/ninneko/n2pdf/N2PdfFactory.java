@@ -1,4 +1,4 @@
-package com.ninneko.N2PDF;
+package com.ninneko.n2pdf;
 
 /**
  * 
