@@ -27,9 +27,6 @@ public class N2PdfTable extends N2PdfComponent {
         }
         N2PdfRow row = rows.poll();
 
-        System.out.println("x:" + x);
-        System.out.println("y:" + y);
-        System.out.println("x+width:" + (x + row.getWidth()));
         // 一番上の水平線
         cStream.drawLine(x, y, x + row.getWidth(), y);
 
