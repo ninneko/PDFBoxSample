@@ -18,15 +18,15 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
  *
  * @author ninneko
  */
-public class N2PdfParagraph extends N2PdfComponent {
+public class B2PdfParagraph extends B2PdfComponent {
 
     private String text;
-    private int fontSize = N2PdfDef.DEFAULT_FONT_SIZE;
+    private int fontSize = B2PdfDef.DEFAULT_FONT_SIZE;
     private int width;
-    private Color color = N2PdfDef.DEFAULT_COLOR;
+    private Color color = B2PdfDef.DEFAULT_COLOR;
     private PDFont font;
 
-    public N2PdfParagraph(String text, PDFont font, int fontSize, int width) {
+    public B2PdfParagraph(String text, PDFont font, int fontSize, int width) {
         this.text = text;
         this.font = font;
         this.fontSize = fontSize;
@@ -57,7 +57,7 @@ public class N2PdfParagraph extends N2PdfComponent {
         int start = 0;
         int last = 0;
         for (int end : candidateOfWrapPoint) {
-            float width = font.getStringWidth(text.substring(start, end)) / N2PdfDef.UNIT_SIZE * fontSize;
+            float width = font.getStringWidth(text.substring(start, end)) / B2PdfDef.UNIT_SIZE * fontSize;
             if (start < last && width > this.width) {
                 result.add(text.substring(start, last));
                 start = last;
@@ -76,11 +76,11 @@ public class N2PdfParagraph extends N2PdfComponent {
             PDFontDescriptor fontDescriptor = descendantFont.getFontDescriptor();
             PDRectangle fontBoundingBox = fontDescriptor.getFontBoundingBox();
 
-            return fontBoundingBox.getHeight() / N2PdfDef.UNIT_SIZE * fontSize;
+            return fontBoundingBox.getHeight() / B2PdfDef.UNIT_SIZE * fontSize;
         }
         PDFontDescriptor fontDescriptor = font.getFontDescriptor();
         PDRectangle fontBoundingBox = fontDescriptor.getFontBoundingBox();
-        return fontBoundingBox.getHeight() / N2PdfDef.UNIT_SIZE * fontSize;
+        return fontBoundingBox.getHeight() / B2PdfDef.UNIT_SIZE * fontSize;
     }
 
     public float getFontWidth() {
@@ -90,9 +90,9 @@ public class N2PdfParagraph extends N2PdfComponent {
             PDFontDescriptor fontDescriptor = descendantFont.getFontDescriptor();
             PDRectangle fontBoundingBox = fontDescriptor.getFontBoundingBox();
 
-            return fontBoundingBox.getWidth() / N2PdfDef.UNIT_SIZE * fontSize;
+            return fontBoundingBox.getWidth() / B2PdfDef.UNIT_SIZE * fontSize;
         }
-        return font.getFontDescriptor().getFontBoundingBox().getWidth() / N2PdfDef.UNIT_SIZE * fontSize;
+        return font.getFontDescriptor().getFontBoundingBox().getWidth() / B2PdfDef.UNIT_SIZE * fontSize;
     }
 
     /**

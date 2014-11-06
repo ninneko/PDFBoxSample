@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 
 public class ManagerTest extends TestCase {
     public void test_manager() {
-        N2PdfManager manager = new N2PdfManager();
+        B2PdfManager manager = new B2PdfManager();
         File file = manager.createTestPdf("aaaaaa", "testtest.pdf");
 
     }

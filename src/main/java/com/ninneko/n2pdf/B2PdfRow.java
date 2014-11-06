@@ -7,30 +7,30 @@ import java.util.List;
  *
  * @author ninneko
  */
-public class N2PdfRow extends N2PdfContent {
+public class B2PdfRow extends B2PdfContent {
 
-    List<N2PdfCell> cells;
+    List<B2PdfCell> cells;
     float height;
 
-    public N2PdfRow(List<N2PdfCell> cells, float height) {
+    public B2PdfRow(List<B2PdfCell> cells, float height) {
         this.cells = cells;
         this.height = height;
     }
 
-    public N2PdfRow(float height) {
+    public B2PdfRow(float height) {
         this.height = height;
     }
 
-    public void addCell(N2PdfCell cell) {
+    public void addCell(B2PdfCell cell) {
         if (cells == null) {
-            cells = new ArrayList<N2PdfCell>();
+            cells = new ArrayList<B2PdfCell>();
         }
         cells.add(cell);
     }
 
     public float getWidth() {
         float SumOfWidth = 0;
-        for (N2PdfCell cell : cells) {
+        for (B2PdfCell cell : cells) {
             SumOfWidth += cell.getWidth();
         }
         return SumOfWidth;
@@ -40,7 +40,7 @@ public class N2PdfRow extends N2PdfContent {
      * cellsを取得します。
      * @return cells
      */
-    public List<N2PdfCell> getCells() {
+    public List<B2PdfCell> getCells() {
         return cells;
     }
 
@@ -48,7 +48,7 @@ public class N2PdfRow extends N2PdfContent {
      * cellsを設定します。
      * @param cells cells
      */
-    public void setCells(List<N2PdfCell> cells) {
+    public void setCells(List<B2PdfCell> cells) {
         this.cells = cells;
     }
 

@@ -1,5 +1,5 @@
 package com.ninneko.n2pdf;
 
-public class N2PdfContent {
+public class B2PdfContent {
 
 }

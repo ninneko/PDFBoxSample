@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 
-public abstract class N2PdfComponent extends N2PdfContent {
+public abstract class B2PdfComponent extends B2PdfContent {
     protected PDPage page;
     protected PDPageContentStream cStream;
 

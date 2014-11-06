@@ -6,7 +6,7 @@ import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
  *
  * @author ninneko
  */
-public class N2PdfBox extends N2PdfComponent {
+public class B2PdfBox extends B2PdfComponent {
 
     public float drow(PDPageContentStream cStream, float Ypos) {
         // TODO

@@ -12,12 +12,12 @@ import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
  *
  * @author ninneko
  */
-public class N2PdfTable extends N2PdfComponent {
+public class B2PdfTable extends B2PdfComponent {
     private float marginTop = 10;
     private float marginBottom = 10;
     private float marginLeft = 10;
     private float marginRight = 10;
-    private Queue<N2PdfRow> rows;
+    private Queue<B2PdfRow> rows;
 
     public float drow(PDPageContentStream cStream, float yCoordinate) throws IOException {
         float x = marginLeft;
@@ -25,12 +25,12 @@ public class N2PdfTable extends N2PdfComponent {
         if (rows.isEmpty()) {
             return y;
         }
-        N2PdfRow row = rows.poll();
+        B2PdfRow row = rows.poll();
 
         // 一番上の水平線
         cStream.drawLine(x, y, x + row.getWidth(), y);
 
-        for (N2PdfCell cell : row.getCells()) {
+        for (B2PdfCell cell : row.getCells()) {
             // 垂直線+色塗りのはじまり
             if (cell.getFillColor() != null) {
                 cStream.setNonStrokingColor(cell.getFillColor());
@@ -49,8 +49,8 @@ public class N2PdfTable extends N2PdfComponent {
 
         // 文字列書き込み開始
         x = marginLeft; // TODO マージン考える
-        y = yCoordinate - (row.getHeight() - N2PdfDef.DEFAULT_CELL_MARGIN); // TODO マージン考える
-        for (N2PdfCell cell : row.getCells()) {
+        y = yCoordinate - (row.getHeight() - B2PdfDef.DEFAULT_CELL_MARGIN); // TODO マージン考える
+        for (B2PdfCell cell : row.getCells()) {
             cStream.setFont(cell.getFont(), cell.getFontSize());
             cStream.setNonStrokingColor(cell.getTextColor());
             cStream.beginText();
@@ -78,9 +78,9 @@ public class N2PdfTable extends N2PdfComponent {
         return y;
     }
 
-    public void addRow(N2PdfRow row) {
+    public void addRow(B2PdfRow row) {
         if (rows == null) {
-            rows = new ArrayDeque<N2PdfRow>();
+            rows = new ArrayDeque<B2PdfRow>();
         }
         rows.add(row);
     }
@@ -157,7 +157,7 @@ public class N2PdfTable extends N2PdfComponent {
      * rowsを取得します。
      * @return rows
      */
-    public Queue<N2PdfRow> getRows() {
+    public Queue<B2PdfRow> getRows() {
         return rows;
     }
 
@@ -165,7 +165,7 @@ public class N2PdfTable extends N2PdfComponent {
      * rowsを設定します。
      * @param rows rows
      */
-    public void setRows(Queue<N2PdfRow> rows) {
+    public void setRows(Queue<B2PdfRow> rows) {
         this.rows = rows;
     }
 

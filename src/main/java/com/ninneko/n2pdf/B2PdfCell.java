@@ -8,24 +8,24 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
  *
  * @author ninneko
  */
-public class N2PdfCell extends N2PdfContent {
+public class B2PdfCell extends B2PdfContent {
     float width;
     String text;
     private PDFont font;
-    private float fontSize = N2PdfDef.DEFAULT_FONT_SIZE;
+    private float fontSize = B2PdfDef.DEFAULT_FONT_SIZE;
     private Color fillColor;
-    private Color textColor = N2PdfDef.DEFAULT_COLOR;
-    private float marginVertical = N2PdfDef.DEFAULT_CELL_MARGIN;
-    private float marginHorizontal = N2PdfDef.DEFAULT_CELL_MARGIN;
+    private Color textColor = B2PdfDef.DEFAULT_COLOR;
+    private float marginVertical = B2PdfDef.DEFAULT_CELL_MARGIN;
+    private float marginHorizontal = B2PdfDef.DEFAULT_CELL_MARGIN;
 
-    public N2PdfCell(float width, String text) {
+    public B2PdfCell(float width, String text) {
         this.width = width;
         this.text = text;
 
     }
 
-    public N2PdfParagraph getParagraph() {
-        return new N2PdfParagraph(text, font, (int) fontSize, (int) width);
+    public B2PdfParagraph getParagraph() {
+        return new B2PdfParagraph(text, font, (int) fontSize, (int) width);
     }
 
     /**

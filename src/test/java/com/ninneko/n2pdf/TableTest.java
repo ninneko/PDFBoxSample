@@ -72,11 +72,11 @@ public class TableTest extends TestCase {
             List<String[]> facts = getFacts();
             float tableWidth = page.findMediaBox().getWidth() - (2 * Margin);
             float top = page.findMediaBox().getHeight() - (2 * Margin);
-            N2PdfTable table = new N2PdfTable();
+            B2PdfTable table = new B2PdfTable();
 
             // 一行目
-            N2PdfRow headerrow = new N2PdfRow(15f);
-            N2PdfCell cell = new N2PdfCell(tableWidth, "test");
+            B2PdfRow headerrow = new B2PdfRow(15f);
+            B2PdfCell cell = new B2PdfCell(tableWidth, "test");
             cell.setFont(pdFont);
             cell.setFillColor(Color.BLACK);
             cell.setTextColor(Color.WHITE);
@@ -84,20 +84,20 @@ public class TableTest extends TestCase {
             table.addRow(headerrow);
 
             // 二行目
-            N2PdfRow row = new N2PdfRow(10f);
-            cell = new N2PdfCell((tableWidth / 4), "せりふ");
+            B2PdfRow row = new B2PdfRow(10f);
+            cell = new B2PdfCell((tableWidth / 4), "せりふ");
             cell.setFont(pdFont);
             cell.setFontSize(6);
             row.addCell(cell);
-            cell = new N2PdfCell((tableWidth / 4), "人物");
+            cell = new B2PdfCell((tableWidth / 4), "人物");
             cell.setFont(pdFont);
             cell.setFontSize(6);
             row.addCell(cell);
-            cell = new N2PdfCell((tableWidth / 4), "枝番");
+            cell = new B2PdfCell((tableWidth / 4), "枝番");
             cell.setFont(pdFont);
             cell.setFontSize(6);
             row.addCell(cell);
-            cell = new N2PdfCell((tableWidth / 4), "出典");
+            cell = new B2PdfCell((tableWidth / 4), "出典");
             cell.setFont(pdFont);
             cell.setFontSize(6);
             row.addCell(cell);
@@ -106,14 +106,14 @@ public class TableTest extends TestCase {
             // 中身
             for (String[] fact : facts) {
 
-                row = new N2PdfRow(10f);
-                cell = new N2PdfCell((tableWidth / 3) * 2, fact[0]);
+                row = new B2PdfRow(10f);
+                cell = new B2PdfCell((tableWidth / 3) * 2, fact[0]);
                 cell.setFont(pdFont);
                 cell.setFontSize(6);
                 row.addCell(cell);
 
                 for (int i = 1; i < fact.length; i++) {
-                    cell = new N2PdfCell(((tableWidth / 9)), fact[i]);
+                    cell = new B2PdfCell(((tableWidth / 9)), fact[i]);
                     cell.setFont(pdFont);
                     cell.setFontSize(6);
                     // Set colors
