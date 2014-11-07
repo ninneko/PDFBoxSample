@@ -13,13 +13,9 @@ import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
  * @author ninneko
  */
 public class B2PdfTable extends B2PdfComponent {
-    private float marginTop = 10;
-    private float marginBottom = 10;
-    private float marginLeft = 10;
-    private float marginRight = 10;
     private Queue<B2PdfRow> rows;
 
-    public float drow(PDPageContentStream cStream, float yCoordinate) throws IOException {
+    public float drow(PDPageContentStream cStream, float xPos, float yCoordinate) throws IOException {
         float x = marginLeft;
         float y = yCoordinate;
         if (rows.isEmpty()) {
@@ -27,50 +23,8 @@ public class B2PdfTable extends B2PdfComponent {
         }
         B2PdfRow row = rows.poll();
 
-        // 一番上の水平線
-        cStream.drawLine(x, y, x + row.getWidth(), y);
+        y = row.drow(cStream,xPos,yCoordinate);
 
-        for (B2PdfCell cell : row.getCells()) {
-            // 垂直線+色塗りのはじまり
-            if (cell.getFillColor() != null) {
-                cStream.setNonStrokingColor(cell.getFillColor());
-                cStream.fillRect(x, y - row.getHeight(), cell.getWidth(), row.getHeight() - 1f);
-                cStream.closeSubPath();
-            }
-            cStream.setNonStrokingColor(Color.BLACK);
-            cStream.drawLine(x, y, x, y - row.getHeight());
-            cStream.closeSubPath();
-            x += cell.getWidth();
-        }
-        cStream.setNonStrokingColor(Color.BLACK);
-        cStream.drawLine(x, y, x, y - row.getHeight());
-        cStream.closeSubPath();
-        // 垂直線+色塗りのおわり
-
-        // 文字列書き込み開始
-        x = marginLeft; // TODO マージン考える
-        y = yCoordinate - (row.getHeight() - B2PdfDef.DEFAULT_CELL_MARGIN); // TODO マージン考える
-        for (B2PdfCell cell : row.getCells()) {
-            cStream.setFont(cell.getFont(), cell.getFontSize());
-            cStream.setNonStrokingColor(cell.getTextColor());
-            cStream.beginText();
-            cStream.moveTextPositionByAmount(x, y);
-            List<String> lines = cell.getParagraph().getLines();
-            int lineNum = lines.size();
-            cStream.appendRawCommands(cell.getParagraph().getFontHeight() + " TL\n");
-            for (String line : lines) {
-                cStream.drawString(new String(line.getBytes("MS932"), "ISO8859-1"));
-                if (lineNum > 0) {
-                    cStream.appendRawCommands("T*\n");
-                }
-                lineNum--;
-            }
-            cStream.endText();
-            cStream.closeSubPath();
-            x += cell.getWidth(); // TODO マージン考える
-        }
-
-        y = yCoordinate - row.getHeight();
         if (rows.isEmpty()) {
             cStream.drawLine(marginLeft, y, marginLeft + row.getWidth(), y);
             cStream.closeSubPath();

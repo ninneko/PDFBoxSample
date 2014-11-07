@@ -1,7 +1,10 @@
 package com.ninneko.n2pdf;
 
 import java.awt.Color;
+import java.io.IOException;
+import java.util.List;
 
+import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 
 /**
@@ -22,6 +25,26 @@ public class B2PdfCell extends B2PdfContent {
         this.width = width;
         this.text = text;
 
+    }
+
+    public float drow(PDPageContentStream cStream, float xPos, float yPos) throws IOException {
+        cStream.setFont(getFont(), getFontSize());
+        cStream.setNonStrokingColor(getTextColor());
+        cStream.beginText();
+        cStream.moveTextPositionByAmount(xPos, yPos);
+        List<String> lines = getParagraph().getLines();
+        int lineNum = lines.size();
+        cStream.appendRawCommands(getParagraph().getFontHeight() + " TL\n");
+        for (String line : lines) {
+            cStream.drawString(new String(line.getBytes("MS932"), "ISO8859-1"));
+            if (lineNum > 0) {
+                cStream.appendRawCommands("T*\n");
+            }
+            lineNum--;
+        }
+        cStream.endText();
+        cStream.closeSubPath();
+        return 0;
     }
 
     public B2PdfParagraph getParagraph() {

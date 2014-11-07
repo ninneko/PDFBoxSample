@@ -70,7 +70,7 @@ public class B2PdfManager {
 
             float yCoordinate = top - 20f;
             while (!table.isEmpty()) {
-                yCoordinate = table.drow(cStream, yCoordinate);
+                yCoordinate = table.drow(cStream, 0 ,yCoordinate);
             }
             // Close Stream and save pdf
             cStream.close();
@@ -80,6 +80,7 @@ public class B2PdfManager {
             document.save(oStream);
             oStream.close();
             document.close();
+            return file;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (COSVisitorException e) {
