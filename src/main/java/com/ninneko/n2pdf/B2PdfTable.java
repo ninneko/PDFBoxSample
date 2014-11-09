@@ -1,35 +1,36 @@
 package com.ninneko.n2pdf;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayDeque;
-import java.util.List;
 import java.util.Queue;
 
 import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 
 /**
- *
  * @author ninneko
  */
 public class B2PdfTable extends B2PdfComponent {
     private Queue<B2PdfRow> rows;
 
-    public float drow(PDPageContentStream cStream, float xPos, float yCoordinate) throws IOException {
+    public float draw(PDPageContentStream cStream, float xPos, float yCoordinate) throws IOException {
         float x = marginLeft;
         float y = yCoordinate;
         if (rows.isEmpty()) {
             return y;
         }
-        B2PdfRow row = rows.poll();
 
-        y = row.drow(cStream,xPos,yCoordinate);
 
-        if (rows.isEmpty()) {
-            cStream.drawLine(marginLeft, y, marginLeft + row.getWidth(), y);
-            cStream.closeSubPath();
+        for (B2PdfRow row = rows.poll(); ; row = rows.poll()) {
+            System.out.println(y);
+            y = row.draw(cStream, xPos, y);
+            if (rows.isEmpty()) {
+                cStream.drawLine(marginLeft, y, marginLeft + row.getWidth(), y);
+                cStream.closeSubPath();
+                return y;
+            }
         }
-        return y;
+
+
     }
 
     public void addRow(B2PdfRow row) {
@@ -45,6 +46,7 @@ public class B2PdfTable extends B2PdfComponent {
 
     /**
      * marginTopを取得します。
+     *
      * @return marginTop
      */
     public float getMarginTop() {
@@ -53,6 +55,7 @@ public class B2PdfTable extends B2PdfComponent {
 
     /**
      * marginTopを設定します。
+     *
      * @param marginTop marginTop
      */
     public void setMarginTop(float marginTop) {
@@ -61,6 +64,7 @@ public class B2PdfTable extends B2PdfComponent {
 
     /**
      * marginBottomを取得します。
+     *
      * @return marginBottom
      */
     public float getMarginBottom() {
@@ -69,6 +73,7 @@ public class B2PdfTable extends B2PdfComponent {
 
     /**
      * marginBottomを設定します。
+     *
      * @param marginBottom marginBottom
      */
     public void setMarginBottom(float marginBottom) {
@@ -77,6 +82,7 @@ public class B2PdfTable extends B2PdfComponent {
 
     /**
      * marginLeftを取得します。
+     *
      * @return marginLeft
      */
     public float getMarginLeft() {
@@ -85,6 +91,7 @@ public class B2PdfTable extends B2PdfComponent {
 
     /**
      * marginLeftを設定します。
+     *
      * @param marginLeft marginLeft
      */
     public void setMarginLeft(float marginLeft) {
@@ -93,6 +100,7 @@ public class B2PdfTable extends B2PdfComponent {
 
     /**
      * marginRightを取得します。
+     *
      * @return marginRight
      */
     public float getMarginRight() {
@@ -101,6 +109,7 @@ public class B2PdfTable extends B2PdfComponent {
 
     /**
      * marginRightを設定します。
+     *
      * @param marginRight marginRight
      */
     public void setMarginRight(float marginRight) {
@@ -109,6 +118,7 @@ public class B2PdfTable extends B2PdfComponent {
 
     /**
      * rowsを取得します。
+     *
      * @return rows
      */
     public Queue<B2PdfRow> getRows() {
@@ -117,6 +127,7 @@ public class B2PdfTable extends B2PdfComponent {
 
     /**
      * rowsを設定します。
+     *
      * @param rows rows
      */
     public void setRows(Queue<B2PdfRow> rows) {

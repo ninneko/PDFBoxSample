@@ -33,8 +33,22 @@ public class B2PdfParagraph extends B2PdfComponent {
         this.width = width;
     }
 
-    public float drow(PDPageContentStream cStream, float Ypos) {
-        // TODO
+    public float draw(PDPageContentStream cStream, float xPos, float yPos) throws IOException {
+        cStream.setFont(font,fontSize);
+        cStream.beginText();
+        cStream.moveTextPositionByAmount(xPos, yPos);
+        List<String> lines = getLines();
+        int lineNum = lines.size();
+        cStream.appendRawCommands(getFontHeight() + " TL\n");
+        for (String line : lines) {
+            cStream.drawString(new String(line.getBytes("MS932"), "ISO8859-1"));
+            if (lineNum > 0) {
+                cStream.appendRawCommands("T*\n");
+            }
+            lineNum--;
+        }
+        cStream.endText();
+        cStream.closeSubPath();
         return 0;
     }
 

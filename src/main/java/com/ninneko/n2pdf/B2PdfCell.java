@@ -8,7 +8,6 @@ import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 
 /**
- *
  * @author ninneko
  */
 public class B2PdfCell extends B2PdfContent {
@@ -27,23 +26,10 @@ public class B2PdfCell extends B2PdfContent {
 
     }
 
-    public float drow(PDPageContentStream cStream, float xPos, float yPos) throws IOException {
+    public float draw(PDPageContentStream cStream, float xPos, float yPos) throws IOException {
         cStream.setFont(getFont(), getFontSize());
         cStream.setNonStrokingColor(getTextColor());
-        cStream.beginText();
-        cStream.moveTextPositionByAmount(xPos, yPos);
-        List<String> lines = getParagraph().getLines();
-        int lineNum = lines.size();
-        cStream.appendRawCommands(getParagraph().getFontHeight() + " TL\n");
-        for (String line : lines) {
-            cStream.drawString(new String(line.getBytes("MS932"), "ISO8859-1"));
-            if (lineNum > 0) {
-                cStream.appendRawCommands("T*\n");
-            }
-            lineNum--;
-        }
-        cStream.endText();
-        cStream.closeSubPath();
+        getParagraph().draw(cStream, xPos, yPos);
         return 0;
     }
 
@@ -53,6 +39,7 @@ public class B2PdfCell extends B2PdfContent {
 
     /**
      * widthを取得します。
+     *
      * @return width
      */
     public float getWidth() {
@@ -61,6 +48,7 @@ public class B2PdfCell extends B2PdfContent {
 
     /**
      * widthを設定します。
+     *
      * @param width width
      */
     public void setWidth(float width) {
@@ -69,6 +57,7 @@ public class B2PdfCell extends B2PdfContent {
 
     /**
      * textを取得します。
+     *
      * @return text
      */
     public String getText() {
@@ -77,6 +66,7 @@ public class B2PdfCell extends B2PdfContent {
 
     /**
      * textを設定します。
+     *
      * @param text text
      */
     public void setText(String text) {
@@ -85,6 +75,7 @@ public class B2PdfCell extends B2PdfContent {
 
     /**
      * fontを取得します。
+     *
      * @return font
      */
     public PDFont getFont() {
@@ -93,6 +84,7 @@ public class B2PdfCell extends B2PdfContent {
 
     /**
      * fontを設定します。
+     *
      * @param font font
      */
     public void setFont(PDFont font) {
@@ -101,6 +93,7 @@ public class B2PdfCell extends B2PdfContent {
 
     /**
      * fontSizeを取得します。
+     *
      * @return fontSize
      */
     public float getFontSize() {
@@ -109,6 +102,7 @@ public class B2PdfCell extends B2PdfContent {
 
     /**
      * fontSizeを設定します。
+     *
      * @param fontSize fontSize
      */
     public void setFontSize(float fontSize) {
@@ -117,6 +111,7 @@ public class B2PdfCell extends B2PdfContent {
 
     /**
      * fillColorを取得します。
+     *
      * @return fillColor
      */
     public Color getFillColor() {
@@ -125,6 +120,7 @@ public class B2PdfCell extends B2PdfContent {
 
     /**
      * fillColorを設定します。
+     *
      * @param fillColor fillColor
      */
     public void setFillColor(Color fillColor) {
@@ -133,6 +129,7 @@ public class B2PdfCell extends B2PdfContent {
 
     /**
      * textColorを取得します。
+     *
      * @return textColor
      */
     public Color getTextColor() {
@@ -141,6 +138,7 @@ public class B2PdfCell extends B2PdfContent {
 
     /**
      * textColorを設定します。
+     *
      * @param textColor textColor
      */
     public void setTextColor(Color textColor) {
@@ -149,6 +147,7 @@ public class B2PdfCell extends B2PdfContent {
 
     /**
      * marginVerticalを取得します。
+     *
      * @return marginVertical
      */
     public float getMarginVertical() {
@@ -157,6 +156,7 @@ public class B2PdfCell extends B2PdfContent {
 
     /**
      * marginVerticalを設定します。
+     *
      * @param marginVertical marginVertical
      */
     public void setMarginVertical(float marginVertical) {
@@ -165,6 +165,7 @@ public class B2PdfCell extends B2PdfContent {
 
     /**
      * marginHorizontalを取得します。
+     *
      * @return marginHorizontal
      */
     public float getMarginHorizontal() {
@@ -173,6 +174,7 @@ public class B2PdfCell extends B2PdfContent {
 
     /**
      * marginHorizontalを設定します。
+     *
      * @param marginHorizontal marginHorizontal
      */
     public void setMarginHorizontal(float marginHorizontal) {

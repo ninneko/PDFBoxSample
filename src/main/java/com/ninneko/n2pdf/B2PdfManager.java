@@ -15,23 +15,50 @@ import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 
 /**
- *
  * @author ninneko
  */
 public class B2PdfManager {
     private Queue<B2PdfComponent> components;
-    private B2PdfTable testTable;
     private PDFont font;
 
     public B2PdfManager(PDFont font) {
         components = new ArrayDeque<B2PdfComponent>();
-        testTable = new B2PdfTable();
-        add(testTable);
         this.font = font;
     }
 
     public void add(B2PdfComponent component) {
         components.add(component);
+    }
+
+    public File draw(String filePath) {
+        try {
+            PDDocument document = new PDDocument();
+            PDPage page = new PDPage();
+            document.addPage(page);
+            PDPageContentStream cStream = new PDPageContentStream(document, page);
+
+            float margin = 10;
+            float tableWidth = page.findMediaBox().getWidth() - (2 * margin);
+            float top = page.findMediaBox().getHeight() - (2 * margin);
+            float yCoordinate = top - 20f;
+            for (B2PdfComponent component = components.poll(); component != null; component = components.poll()) {
+                component.draw(cStream, 10, yCoordinate);
+            }
+            // Close Stream and save pdf
+            cStream.close();
+            // Save the document
+            File file = new File(filePath);
+            OutputStream oStream = new FileOutputStream(file);
+            document.save(oStream);
+            oStream.close();
+            document.close();
+            return file;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (COSVisitorException e) {
+            e.printStackTrace();
+        }
+            return null;
     }
 
     public File createTestPdf(String text, String filePath) {
@@ -70,7 +97,7 @@ public class B2PdfManager {
 
             float yCoordinate = top - 20f;
             while (!table.isEmpty()) {
-                yCoordinate = table.drow(cStream, 0 ,yCoordinate);
+                yCoordinate = table.draw(cStream, 0, yCoordinate);
             }
             // Close Stream and save pdf
             cStream.close();

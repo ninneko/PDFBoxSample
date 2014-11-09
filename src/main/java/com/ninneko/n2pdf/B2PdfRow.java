@@ -25,8 +25,8 @@ public class B2PdfRow extends B2PdfContent {
         this.height = height;
     }
 
-    public float drow(PDPageContentStream cStream,float xPos, float yPos) throws IOException {
-        float x = marginLeft;
+    public float draw(PDPageContentStream cStream, float xPos, float yPos) throws IOException {
+        float x = marginLeft+xPos;
         float y = yPos;
 
         // 一番上の水平線
@@ -53,22 +53,7 @@ public class B2PdfRow extends B2PdfContent {
         x = marginLeft; // TODO マージン考える
         y = yPos - (getHeight() - B2PdfDef.DEFAULT_CELL_MARGIN); // TODO マージン考える
         for (B2PdfCell cell : getCells()) {
-            cStream.setFont(cell.getFont(), cell.getFontSize());
-            cStream.setNonStrokingColor(cell.getTextColor());
-            cStream.beginText();
-            cStream.moveTextPositionByAmount(x, y);
-            List<String> lines = cell.getParagraph().getLines();
-            int lineNum = lines.size();
-            cStream.appendRawCommands(cell.getParagraph().getFontHeight() + " TL\n");
-            for (String line : lines) {
-                cStream.drawString(new String(line.getBytes("MS932"), "ISO8859-1"));
-                if (lineNum > 0) {
-                    cStream.appendRawCommands("T*\n");
-                }
-                lineNum--;
-            }
-            cStream.endText();
-            cStream.closeSubPath();
+            cell.draw(cStream,x,y);
             x += cell.getWidth(); // TODO マージン考える
         }
 

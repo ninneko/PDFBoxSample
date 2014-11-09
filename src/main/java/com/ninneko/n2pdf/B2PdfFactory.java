@@ -71,4 +71,8 @@ public class B2PdfFactory {
         //フォント作成
         return new PDType0Font(font);
     }
+
+    public PDFont getFont(){
+        return font;
+    }
 }

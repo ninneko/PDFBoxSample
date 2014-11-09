@@ -11,5 +11,5 @@ public abstract class B2PdfContent {
     protected float marginRight = 10;
     protected float xPos = 0;
     protected float yPos = 0;
-    public abstract float drow(PDPageContentStream cStream, float xPos,float yPos) throws IOException;
+    public abstract float draw(PDPageContentStream cStream, float xPos, float yPos) throws IOException;
 }

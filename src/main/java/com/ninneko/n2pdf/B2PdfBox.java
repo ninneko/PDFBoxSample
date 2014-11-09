@@ -1,5 +1,6 @@
 package com.ninneko.n2pdf;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
@@ -25,5 +26,15 @@ public class B2PdfBox extends B2PdfComponent {
         float maxHeight = 0;
 
         return maxHeight;
+    }
+
+    @Override
+    public float draw(PDPageContentStream cStream, float xPos, float yPos) throws IOException {
+        float x = marginLeft;
+        float y = yPos;
+        for (B2PdfContent content : contents) {
+            content.draw(cStream, xPos, yPos);
+        }
+        return 0;
     }
 }

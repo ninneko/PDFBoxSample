@@ -129,7 +129,7 @@ public class TableTest extends TestCase {
 
             float yCoordinate = top - 20f;
             while (!table.isEmpty()) {
-                yCoordinate = table.drow(cStream, yCoordinate);
+//                yCoordinate = table.draw(cStream, yCoordinate);
             }
             // Close Stream and save pdf
             cStream.close();
